@@ -17,6 +17,8 @@ async function signup(
   signupFormData: SignupFormData, 
   photoData: PhotoFormData,
 ): Promise<void> {
+  console.log('signupFormData', signupFormData);
+  
   const res = await fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

@@ -21,10 +21,11 @@ const Signup = (props: AuthPageProps): JSX.Element => {
   const [message, setMessage] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [formData, setFormData] = useState<SignupFormData>({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
-    passwordConf: '',
+    confirmPassword: '',
   })
   const [photoData, setPhotoData] = useState<PhotoFormData>({
     photo: null
@@ -63,7 +64,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
     setPhotoData({ photo: evt.target.files[0] })
   }
 
-  const { name, email, password, passwordConf } = formData
+  const { firstName, lastName, email, password, confirmPassword } = formData
 
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
@@ -83,7 +84,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
   }
 
   const isFormInvalid = () => {
-    return !(name && email && password && password === passwordConf)
+    return !(firstName &&lastName && email && password && password === confirmPassword)
   }
 
   return (
@@ -92,8 +93,12 @@ const Signup = (props: AuthPageProps): JSX.Element => {
       <p className={styles.message}>{message}</p>
       <form autoComplete="off" onSubmit={handleSubmit} className={styles.form}>
         <label className={styles.label}>
-          Name
-          <input type="text" value={name} name="name" onChange={handleChange} />
+          First Name
+          <input type="text" value={firstName} name="firstName" onChange={handleChange} />
+        </label>
+        <label className={styles.label}>
+          Last Name
+          <input type="text" value={lastName} name="lastName" onChange={handleChange} />
         </label>
         <label className={styles.label}>
           Email
@@ -117,8 +122,8 @@ const Signup = (props: AuthPageProps): JSX.Element => {
           Confirm Password
           <input
             type="password"
-            value={passwordConf}
-            name="passwordConf"
+            value={confirmPassword}
+            name="confirmPassword"
             onChange={handleChange}
           />
         </label>
