@@ -5,11 +5,17 @@
 /* ---------===== auth models =====--------- */
 
 export interface Profile {
-  name: string;
-  photo?: string;
   id: number;
-  createdAt: string;
-  updatedAt: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  roleName: string;
+  roleValue: number;
+  profilePhotoUrl: string | null;
+  clinicId: number | null;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface User {

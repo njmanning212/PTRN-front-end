@@ -20,12 +20,16 @@ const Signup = (props: AuthPageProps): JSX.Element => {
 
   const [message, setMessage] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [adminSignUp, setAdminSignUp] = useState(false)
   const [formData, setFormData] = useState<SignupFormData>({
     firstName: '',
     lastName: '',
     email: '',
+    phoneNumber: '',
     password: '',
     confirmPassword: '',
+    isAdmin: false,
+    adminCode: ''
   })
   const [photoData, setPhotoData] = useState<PhotoFormData>({
     photo: null
@@ -33,6 +37,11 @@ const Signup = (props: AuthPageProps): JSX.Element => {
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setMessage('')
+    if (evt.target.name === 'isAdmin') {
+      setFormData({ ...formData, [evt.target.name]: evt.target.checked })
+      setAdminSignUp(!adminSignUp)
+      return
+    }
     setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
@@ -64,7 +73,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
     setPhotoData({ photo: evt.target.files[0] })
   }
 
-  const { firstName, lastName, email, password, confirmPassword } = formData
+  const { firstName, lastName, email, phoneNumber, password, confirmPassword, isAdmin, adminCode } = formData
 
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
@@ -110,6 +119,15 @@ const Signup = (props: AuthPageProps): JSX.Element => {
           />
         </label>
         <label className={styles.label}>
+          Phone Number
+          <input
+            type="text"
+            value={phoneNumber}
+            name="phoneNumber"
+            onChange={handleChange}
+          />
+        </label>
+        <label className={styles.label}>
           Password
           <input
             type="password"
@@ -127,6 +145,26 @@ const Signup = (props: AuthPageProps): JSX.Element => {
             onChange={handleChange}
           />
         </label>
+        <label className={styles.label}>
+          Admin Sign Up
+          <input
+            type="checkbox"
+            checked={isAdmin}
+            name="isAdmin"
+            onChange={handleChange}
+          /> 
+        </label>
+        {adminSignUp && (
+          <label className={styles.label}>
+            Admin Code
+            <input
+              type="password"
+              value={adminCode}
+              name="adminCode"
+              onChange={handleChange}
+            />
+          </label>
+        )}
         <label className={styles.label}>
           Upload Photo
           <input 

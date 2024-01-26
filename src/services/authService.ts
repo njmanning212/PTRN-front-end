@@ -1,5 +1,6 @@
 // services
 import * as tokenService from './tokenService'
+import * as profileService from './profileService'
 import { addPhoto as addProfilePhoto } from './profileService'
 
 // types
@@ -9,7 +10,7 @@ import {
   SignupFormData,
   PhotoFormData
 } from '../types/forms'
-import { User } from '../types/models'
+import { Profile } from '../types/models'
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api/auth`
 
@@ -17,7 +18,6 @@ async function signup(
   signupFormData: SignupFormData, 
   photoData: PhotoFormData,
 ): Promise<void> {
-  console.log('signupFormData', signupFormData);
   
   const res = await fetch(`${BASE_URL}/signup`, {
     method: 'POST',
@@ -37,8 +37,10 @@ async function signup(
   }
 }
 
-function getUser(): User | null {
-  return tokenService.getUserFromToken()
+async function getUserProfile(): Promise<Profile | null> {
+  const userProfileId = tokenService.getUserFromToken()
+  if (!userProfileId) return null
+  return await profileService.getProfile(userProfileId)
 }
 
 function logout(): void {
@@ -79,4 +81,4 @@ async function changePassword(
   }
 }
 
-export { signup, getUser, logout, login, changePassword }
+export { signup, getUserProfile, logout, login, changePassword }

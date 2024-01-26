@@ -5,7 +5,7 @@ import jwt_decode, { JwtPayload } from 'jwt-decode'
 import { User } from '../types/models'
 
 interface Payload extends JwtPayload {
-  user: User
+  userProfileId: number
 }
 
 function setToken(token: string): void {
@@ -26,9 +26,11 @@ function getToken(): string | null {
   return token
 }
 
-function getUserFromToken(): User | null {
+function getUserFromToken(): number | null {
   const token = getToken()
-  return token ? jwt_decode<Payload>(token).user : null
+  token ? console.log(jwt_decode<Payload>(token)) : null;
+  
+  return token ? jwt_decode<Payload>(token).userProfileId : null
 }
 
 function removeToken(): void {

@@ -14,17 +14,23 @@ async function getAllProfiles(): Promise<Profile[]> {
   return await res.json() as Profile[]
 }
 
+async function getProfile(userProfileId: number): Promise<Profile> {
+  const res = await fetch(`${BASE_URL}/${userProfileId}`, {
+    headers: { 'Authorization': `Bearer ${tokenService.getToken()}` },
+  })
+  return await res.json() as Profile
+}
+
 async function addPhoto(photoData: PhotoFormData): Promise<string> {
   if (!photoData.photo) throw new Error("No photo found.")
   
   const photoFormData = new FormData()
   photoFormData.append('photo', photoData.photo)
 
-  const user = tokenService.getUserFromToken()
-  if (!user) throw new Error("No user.")
+  const userProfileId = tokenService.getUserFromToken()
+  if (!userProfileId) throw new Error("No user.")
   
-  const profileId = user.profile.id
-  const res = await fetch(`${BASE_URL}/${profileId}/add-photo`, {
+  const res = await fetch(`${BASE_URL}/${userProfileId}/add-photo`, {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${tokenService.getToken()}`
@@ -34,4 +40,4 @@ async function addPhoto(photoData: PhotoFormData): Promise<string> {
   return await res.json() as string
 }
 
-export { getAllProfiles, addPhoto }
+export { getAllProfiles, getProfile, addPhoto }

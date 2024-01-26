@@ -1,5 +1,5 @@
 // npm modules 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 // pages
@@ -20,10 +20,19 @@ import * as authService from './services/authService'
 import './App.css'
 
 // types
-import { User } from './types/models'
+import { Profile } from './types/models'
 
 function App(): JSX.Element {
-  const [user, setUser] = useState<User | null>(authService.getUser())
+  const [user, setUser] = useState<Profile | null>(null);
+
+  useEffect(() => {
+    const getUser = async (): Promise<void> => {
+      const currentUser = await authService.getUserProfile()
+      setUser(currentUser)
+    }
+    getUser()
+  }, []);
+
   const navigate = useNavigate()
   
   const handleLogout = (): void => {
@@ -32,8 +41,9 @@ function App(): JSX.Element {
     navigate('/')
   }
 
-  const handleAuthEvt = (): void => {
-    setUser(authService.getUser())
+  async function handleAuthEvt (): Promise<void> {
+    const currentUser = await authService.getUserProfile()
+    setUser(currentUser)
   }
 
   return (
