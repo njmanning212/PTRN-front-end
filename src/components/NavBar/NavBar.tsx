@@ -2,10 +2,10 @@
 import { NavLink } from 'react-router-dom'
 
 // types
-import { User } from '../../types/models'
+import { Profile } from '../../types/models'
 
 interface NavBarProps {
-  user: User | null;
+  user: Profile | null;
   handleLogout: () => void;
 }
 
@@ -16,7 +16,7 @@ const NavBar = (props: NavBarProps): JSX.Element => {
     <nav>
       {user ?
         <ul>
-          <li>Welcome, {user.name}</li>
+          <li>Welcome, {user.firstName}</li>
           <li><NavLink to="/profiles">Profiles</NavLink></li>
           <li><NavLink to="" onClick={handleLogout}>LOG OUT</NavLink></li>
           <li><NavLink to="/auth/change-password">Change Password</NavLink></li>

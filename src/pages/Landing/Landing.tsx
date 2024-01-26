@@ -2,10 +2,10 @@
 import styles from './Landing.module.css'
 
 // types
-import { User } from '../../types/models'
+import { Profile } from '../../types/models'
 
 interface LandingProps {
-  user: User | null;
+  user: Profile | null;
 }
 
 const Landing = (props: LandingProps): JSX.Element => {
