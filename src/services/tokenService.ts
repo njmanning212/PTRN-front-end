@@ -27,9 +27,7 @@ function getToken(): string | null {
 }
 
 function getUserFromToken(): number | null {
-  const token = getToken()
-  token ? console.log(jwt_decode<Payload>(token)) : null;
-  
+  const token = getToken()  
   return token ? jwt_decode<Payload>(token).userProfileId : null
 }
 

@@ -6,6 +6,9 @@ import { BrowserRouter as Router } from 'react-router-dom'
 // app
 import App from './App'
 
+//tailwind
+import './main.css'
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Router>

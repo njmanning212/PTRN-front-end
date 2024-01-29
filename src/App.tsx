@@ -19,6 +19,7 @@ import * as authService from './services/authService'
 // styles
 import './App.css'
 
+
 // types
 import { Profile } from './types/models'
 
