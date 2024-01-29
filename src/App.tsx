@@ -51,7 +51,11 @@ function App(): JSX.Element {
     <>
       <NavBar user={user} handleLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<Landing user={user} />} />
+        <Route path="/" element={
+          user === null ?
+            <Login handleAuthEvt={handleAuthEvt} /> :
+            <Landing user={user} />
+        } />
         <Route
           path="/profiles"
           element={
@@ -63,10 +67,6 @@ function App(): JSX.Element {
         <Route
           path="/auth/signup"
           element={<Signup handleAuthEvt={handleAuthEvt} />}
-        />
-        <Route
-          path="/auth/login"
-          element={<Login handleAuthEvt={handleAuthEvt} />}
         />
         <Route
           path="/auth/change-password"
