@@ -113,7 +113,7 @@ export default function LoginPage(props: AuthPageProps) {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="/" variant="body2">
+              <Link to="/auth/signup">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
