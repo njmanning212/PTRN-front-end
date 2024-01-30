@@ -89,7 +89,7 @@ export default function LoginPage(props: AuthPageProps) {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        {emailError && (
+        {message && (
           <Typography variant="body2" color="error" align="center" sx={{ mt: 5 }}>
             {message}
           </Typography>
