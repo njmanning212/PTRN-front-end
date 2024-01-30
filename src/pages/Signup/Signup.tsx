@@ -36,6 +36,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
   const [message, setMessage] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [adminSignUp, setAdminSignUp] = useState(false)
+  const [emailError, setEmailError] = useState(false)
   const [formData, setFormData] = useState<SignupFormData>({
     firstName: '',
     lastName: '',
@@ -52,6 +53,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setMessage('')
+    setEmailError(false)
     if (evt.target.name === 'isAdmin') {
       setFormData({ ...formData, [evt.target.name]: evt.target.checked })
       setAdminSignUp(!adminSignUp)
@@ -96,6 +98,12 @@ const Signup = (props: AuthPageProps): JSX.Element => {
       if (!import.meta.env.VITE_BACK_END_SERVER_URL) {
         throw new Error('No VITE_BACK_END_SERVER_URL in front-end .env')
       }
+
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        setEmailError(true);
+        throw new Error('Invalid email address')
+      }
+
       setIsSubmitted(true)
       await authService.signup(formData, photoData)
       handleAuthEvt()
@@ -172,6 +180,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
             autoComplete='email'
             value={email}
             onChange={handleChange}
+            error={emailError}
           />
           <TextField
             margin="normal"
