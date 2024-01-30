@@ -47,15 +47,23 @@ function logout(): void {
   tokenService.removeToken()
 }
 
-async function login(loginFormData: LoginFormData): Promise<void> {
+async function login(loginFormData: LoginFormData): Promise<string | void> {
   const res = await fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(loginFormData),
   })
-  const json = await res.json()
 
-  if (json.err) throw new Error(json.err)
+  if (!res.ok) {
+    try {
+      const errorResponse = await res.json()
+      return `Login failed: ${errorResponse.error}`
+    } catch (error) {
+      throw new Error(`Login failed: ${res.status}`)
+    }
+  }
+
+  const json = await res.json()
 
   if (json.token) tokenService.setToken(json.token)
 }

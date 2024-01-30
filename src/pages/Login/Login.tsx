@@ -46,7 +46,10 @@ export default function LoginPage(props: AuthPageProps) {
       if (!import.meta.env.VITE_BACK_END_SERVER_URL) {
         throw new Error('No VITE_BACK_END_SERVER_URL in front-end .env')
       }
-      await authService.login(formData)
+      const loginResult = await authService.login(formData)
+      if (typeof loginResult === 'string') {
+        throw new Error(loginResult)
+      }
       handleAuthEvt()
       navigate('/')
     } catch (err) {
