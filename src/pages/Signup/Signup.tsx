@@ -5,13 +5,28 @@ import { Link, useNavigate } from 'react-router-dom'
 // services
 import * as authService from '../../services/authService'
 
-// css
-import styles from './Signup.module.css'
-
 // types
 import { SignupFormData, PhotoFormData } from '../../types/forms'
 import { handleErrMsg } from '../../types/validators'
 import { AuthPageProps } from '../../types/props'
+
+//components
+import Copyright from '../../components/Copyright/Copyright';
+
+// MUI icons/components
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Checkbox from '@mui/material/Checkbox';
+import Input from '@mui/material/Input'
+import FormControlLabel from '@mui/material/FormControlLabel'
+
 
 const Signup = (props: AuthPageProps): JSX.Element => {
   const { handleAuthEvt } = props
@@ -62,9 +77,9 @@ const Signup = (props: AuthPageProps): JSX.Element => {
       errMsg = "Image must be in gif, jpeg/jpg, png, svg, or webp format"
       isFileInvalid = true
     }
-    
+
     setMessage(errMsg)
-    
+
     if (isFileInvalid && imgInputRef.current) {
       imgInputRef.current.value = ""
       return
@@ -93,98 +108,163 @@ const Signup = (props: AuthPageProps): JSX.Element => {
   }
 
   const isFormInvalid = () => {
-    return !(firstName &&lastName && email && password && password === confirmPassword)
+    return !(firstName && lastName && email && password && password === confirmPassword)
   }
 
+
+
   return (
-    <main className={styles.container}>
-      <h1>Sign Up</h1>
-      <p className={styles.message}>{message}</p>
-      <form autoComplete="off" onSubmit={handleSubmit} className={styles.form}>
-        <label className={styles.label}>
-          First Name
-          <input type="text" value={firstName} name="firstName" onChange={handleChange} />
-        </label>
-        <label className={styles.label}>
-          Last Name
-          <input type="text" value={lastName} name="lastName" onChange={handleChange} />
-        </label>
-        <label className={styles.label}>
-          Email
-          <input
-            type="text"
-            value={email}
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign Up
+        </Typography>
+        {message && (
+          <Typography
+            variant="body2"
+            color="error"
+            align="center"
+            sx={{ mt: 5 }}
+          >
+            {message}
+          </Typography>
+        )}
+
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="firstName"
+            label="First Name"
+            name="firstName"
+            value={firstName}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="lastName"
+            label="Last Name"
+            name="lastName"
+            value={lastName}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
             name="email"
+            autoComplete='email'
+            value={email}
             onChange={handleChange}
           />
-        </label>
-        <label className={styles.label}>
-          Phone Number
-          <input
-            type="text"
-            value={phoneNumber}
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="phoneNumber"
+            label="Phone Number"
             name="phoneNumber"
+            value={phoneNumber}
             onChange={handleChange}
-          />
-        </label>
-        <label className={styles.label}>
-          Password
-          <input
-            type="password"
-            value={password}
+          >
+          </TextField>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
             name="password"
-            onChange={handleChange}
-          />
-        </label>
-        <label className={styles.label}>
-          Confirm Password
-          <input
+            label="Password"
             type="password"
-            value={confirmPassword}
-            name="confirmPassword"
+            id="password"
+            value={password}
             onChange={handleChange}
           />
-        </label>
-        <label className={styles.label}>
-          Admin Sign Up
-          <input
-            type="checkbox"
-            checked={isAdmin}
-            name="isAdmin"
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="confirmPassword"
+            label="Confirm Password"
+            type="password"
+            id="confirmPassword"
+            value={confirmPassword}
             onChange={handleChange}
-          /> 
-        </label>
-        {adminSignUp && (
-          <label className={styles.label}>
-            Admin Code
-            <input
-              type="password"
-              value={adminCode}
+          />
+
+          <FormControlLabel
+            control={<Checkbox value={isAdmin} onChange={handleChange} name="isAdmin" />}
+            label="Admin Sign Up"
+          />
+          {adminSignUp && (
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               name="adminCode"
+              label="Admin Code"
+              type="password"
+              id="adminCode"
+              value={adminCode}
               onChange={handleChange}
             />
-          </label>
-        )}
-        <label className={styles.label}>
-          Upload Photo
-          <input 
-            type="file" 
-            name="photo" 
+          )}
+          <Typography
+            component="h2"
+            variant="h6"
+            align='center'
+            mt={3}
+          >
+            Optional: Add Profile Photo
+          </Typography>
+          <Input
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              mt: 3
+            }}
+            type="file"
+            name="photo"
             onChange={handleChangePhoto}
             ref={imgInputRef}
           />
-        </label>
-        <div>
-          <Link to="/">Cancel</Link>
-          <button
-            className={styles.button}
-            disabled={ isFormInvalid() || isSubmitted }
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            disabled={isFormInvalid()}
+            sx={{ mt: 3, mb: 2 }}
           >
-            {!isSubmitted ? 'Sign Up' : '🚀 Sending...'}
-          </button>
-        </div>
-      </form>
-    </main>
+            {isSubmitted ? '🚀 Sending...' : 'Sign Up'}
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link to="/">
+                {"Already have an account? Login"}
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+      <Copyright sx={{ mt: 5, mb: 4 }} />
+    </Container>
   )
 }
 

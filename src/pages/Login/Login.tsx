@@ -57,7 +57,7 @@ export default function LoginPage(props: AuthPageProps) {
 
   const { email, password } = formData
 
-  const isformInvalid = (): boolean => {
+  const isFormInvalid = (): boolean => {
     return !(email && password)
   }
 
@@ -83,13 +83,13 @@ export default function LoginPage(props: AuthPageProps) {
             margin="normal"
             required
             fullWidth
+            type='email'
             id="email"
             label="Email Address"
             name="email"
             autoComplete="email"
             value={email}
             onChange={handleChange}
-            autoFocus
           />
           <TextField
             margin="normal"
@@ -106,7 +106,7 @@ export default function LoginPage(props: AuthPageProps) {
             type="submit"
             fullWidth
             variant="contained"
-            disabled={isformInvalid()}
+            disabled={isFormInvalid()}
             sx={{ mt: 3, mb: 2 }}
           >
             Login
