@@ -249,7 +249,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
             type="submit"
             fullWidth
             variant="contained"
-            disabled={isFormInvalid()}
+            disabled={isFormInvalid() || isSubmitted}
             sx={{ mt: 3, mb: 2 }}
           >
             {isSubmitted ? '🚀 Sending...' : 'Sign Up'}
