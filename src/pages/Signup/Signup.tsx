@@ -37,6 +37,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [adminSignUp, setAdminSignUp] = useState(false)
   const [emailError, setEmailError] = useState(false)
+  const [matchingPasswords, setMatchingPasswords] = useState(true)
   const [formData, setFormData] = useState<SignupFormData>({
     firstName: '',
     lastName: '',
@@ -104,6 +105,11 @@ const Signup = (props: AuthPageProps): JSX.Element => {
         throw new Error('Invalid email address')
       }
 
+      if (password !== confirmPassword) {
+        setMatchingPasswords(false)
+        throw new Error('Passwords do not match')
+      }
+
       setIsSubmitted(true)
       await authService.signup(formData, photoData)
       handleAuthEvt()
@@ -116,7 +122,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
   }
 
   const isFormInvalid = () => {
-    return !(firstName && lastName && email && password && password === confirmPassword)
+    return !(firstName && lastName && email && password && confirmPassword)
   }
 
 
@@ -203,6 +209,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
             id="password"
             value={password}
             onChange={handleChange}
+            error={!matchingPasswords}
           />
           <TextField
             margin="normal"
@@ -214,6 +221,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
             id="confirmPassword"
             value={confirmPassword}
             onChange={handleChange}
+            error={!matchingPasswords}
           />
 
           <FormControlLabel
