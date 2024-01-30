@@ -55,6 +55,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setMessage('')
     setEmailError(false)
+    setMatchingPasswords(true)
     if (evt.target.name === 'isAdmin') {
       setFormData({ ...formData, [evt.target.name]: evt.target.checked })
       setAdminSignUp(!adminSignUp)
