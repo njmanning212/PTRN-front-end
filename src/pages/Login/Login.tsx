@@ -30,6 +30,7 @@ export default function LoginPage(props: AuthPageProps) {
   const navigate = useNavigate()
 
   const [message, setMessage] = useState('')
+  const [emailError, setEmailError] = useState<boolean>(false)
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
@@ -37,6 +38,7 @@ export default function LoginPage(props: AuthPageProps) {
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
     setMessage('')
+    setEmailError(false)
     setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
@@ -46,6 +48,12 @@ export default function LoginPage(props: AuthPageProps) {
       if (!import.meta.env.VITE_BACK_END_SERVER_URL) {
         throw new Error('No VITE_BACK_END_SERVER_URL in front-end .env')
       }
+
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        setEmailError(true);
+        throw new Error('Invalid email address')
+      }
+
       const loginResult = await authService.login(formData)
       if (typeof loginResult === 'string') {
         throw new Error(loginResult)
@@ -81,6 +89,11 @@ export default function LoginPage(props: AuthPageProps) {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
+        {emailError && (
+          <Typography variant="body2" color="error" align="center" sx={{ mt: 5 }}>
+            {message}
+          </Typography>
+        )}
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -93,6 +106,7 @@ export default function LoginPage(props: AuthPageProps) {
             autoComplete="email"
             value={email}
             onChange={handleChange}
+            error={emailError}
           />
           <TextField
             margin="normal"
@@ -123,9 +137,6 @@ export default function LoginPage(props: AuthPageProps) {
           </Grid>
         </Box>
       </Box>
-      <Typography variant="body2" color="error" align="center" sx={{mt: 5}}>
-        {message}
-      </Typography>
       <Copyright sx={{ mt: 5, mb: 4 }} />
     </Container>
   );
