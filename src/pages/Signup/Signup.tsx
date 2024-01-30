@@ -112,7 +112,12 @@ const Signup = (props: AuthPageProps): JSX.Element => {
       }
 
       setIsSubmitted(true)
-      await authService.signup(formData, photoData)
+      const signUpResult = await authService.signup(formData, photoData)
+
+      if (typeof signUpResult === 'string') {
+        throw new Error(signUpResult)
+      }
+      
       handleAuthEvt()
       navigate('/')
     } catch (err) {
