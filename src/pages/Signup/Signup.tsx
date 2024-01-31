@@ -26,12 +26,17 @@ import Container from '@mui/material/Container';
 import Checkbox from '@mui/material/Checkbox';
 import Input from '@mui/material/Input'
 import FormControlLabel from '@mui/material/FormControlLabel'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../../state/store'
+import { setUserAsync } from '../../state/user/userSlice'
 
 
 const Signup = (props: AuthPageProps): JSX.Element => {
   const { handleAuthEvt } = props
   const navigate = useNavigate()
   const imgInputRef = useRef<HTMLInputElement | null>(null)
+  const reduxUser = useSelector((state: RootState) => state.user)
+  const dispatch = useDispatch<AppDispatch>()
 
   const [message, setMessage] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -118,7 +123,8 @@ const Signup = (props: AuthPageProps): JSX.Element => {
         throw new Error(signUpResult)
       }
       
-      handleAuthEvt()
+      // handleAuthEvt()
+      dispatch(setUserAsync())
       navigate('/')
     } catch (err) {
       console.log(err)

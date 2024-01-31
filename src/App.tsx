@@ -22,9 +22,12 @@ import './App.css'
 
 // types
 import { Profile } from './types/models'
+import { useSelector } from 'react-redux'
+import { RootState } from './state/store'
 
 function App(): JSX.Element {
   const [user, setUser] = useState<Profile | null>(null);
+  const reduxUser = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
     const getUser = async (): Promise<void> => {
@@ -49,12 +52,12 @@ function App(): JSX.Element {
 
   return (
     <>
-      <NavBar user={user} handleLogout={handleLogout} />
+      {/* <NavBar user={user} handleLogout={handleLogout} /> */}
       <Routes>
         <Route path="/" element={
-          user === null ?
+          reduxUser.id === null ?
             <Login handleAuthEvt={handleAuthEvt} /> :
-            <Landing user={user} />
+            <Landing user={user} handleLogout={handleLogout}/>
         } />
         <Route
           path="/profiles"
