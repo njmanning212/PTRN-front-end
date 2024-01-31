@@ -22,19 +22,17 @@ import './App.css'
 
 // types
 import { Profile } from './types/models'
-import { useSelector } from 'react-redux'
-import { RootState } from './state/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from './state/store'
+import { fetchUserAsync } from './state/user/userSlice'
 
 function App(): JSX.Element {
   const [user, setUser] = useState<Profile | null>(null);
   const reduxUser = useSelector((state: RootState) => state.user)
+  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    const getUser = async (): Promise<void> => {
-      const currentUser = await authService.getUserProfile()
-      setUser(currentUser)
-    }
-    getUser()
+    dispatch(fetchUserAsync())
   }, []);
 
   const navigate = useNavigate()

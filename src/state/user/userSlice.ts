@@ -52,11 +52,34 @@ const userSlice = createSlice({
           state.updatedAt = action.payload.updatedAt;
         }
       })
+      .addCase(fetchUserAsync.fulfilled, (state, action: PayloadAction<Profile | null>) => {
+        if (action.payload) {
+          state.id = action.payload.id;
+          state.firstName = action.payload.firstName;
+          state.lastName = action.payload.lastName;
+          state.email = action.payload.email;
+          state.phoneNumber = action.payload.phoneNumber;
+          state.roleName = action.payload.roleName;
+          state.roleValue = action.payload.roleValue;
+          state.profilePhotoUrl = action.payload.profilePhotoUrl;
+          state.clinicId = action.payload.clinicId;
+          state.createdAt = action.payload.createdAt;
+          state.updatedAt = action.payload.updatedAt;
+        }
+      })
   }
 })
 
 export const setUserAsync = createAsyncThunk(
   'user/setUserAsync',
+  async () => {
+    const currentUser = await authService.getUserProfile();
+    return currentUser;
+  }
+)
+
+export const fetchUserAsync = createAsyncThunk(
+  'user/fetchUserInitialData',
   async () => {
     const currentUser = await authService.getUserProfile();
     return currentUser;
