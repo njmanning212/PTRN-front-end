@@ -24,7 +24,7 @@ import './App.css'
 import { Profile } from './types/models'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from './state/store'
-import { fetchUserAsync } from './state/user/userSlice'
+import { fetchUserProfileAsync } from './state/user/userProfileSlice'
 
 function App(): JSX.Element {
   const [user, setUser] = useState<Profile | null>(null);
@@ -32,7 +32,7 @@ function App(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    dispatch(fetchUserAsync())
+    dispatch(fetchUserProfileAsync())
   }, []);
 
   const navigate = useNavigate()

@@ -28,7 +28,7 @@ import Input from '@mui/material/Input'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../state/store'
-import { setUserAsync } from '../../state/user/userSlice'
+import { fetchUserProfileAsync, setUserAsync } from '../../state/user/userProfileSlice'
 
 
 const Signup = (props: AuthPageProps): JSX.Element => {
@@ -124,7 +124,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
       }
       
       // handleAuthEvt()
-      dispatch(setUserAsync())
+      dispatch(fetchUserProfileAsync())
       navigate('/')
     } catch (err) {
       console.log(err)
