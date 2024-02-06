@@ -8,7 +8,6 @@ import * as authService from '../../services/authService'
 // types
 import { SignupFormData, PhotoFormData } from '../../types/forms'
 import { handleErrMsg } from '../../types/validators'
-import { AuthPageProps } from '../../types/props'
 
 //components
 import Copyright from '../../components/Copyright/Copyright';
@@ -26,16 +25,16 @@ import Container from '@mui/material/Container';
 import Checkbox from '@mui/material/Checkbox';
 import Input from '@mui/material/Input'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '../../state/store'
-import { fetchUserProfileAsync, setUserAsync } from '../../state/user/userProfileSlice'
+
+// Redux
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../state/store'
+import { fetchUserProfileAsync } from '../../state/user/userProfileSlice'
 
 
-const Signup = (props: AuthPageProps): JSX.Element => {
-  const { handleAuthEvt } = props
+const Signup = (): JSX.Element => {
   const navigate = useNavigate()
   const imgInputRef = useRef<HTMLInputElement | null>(null)
-  const reduxUser = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch<AppDispatch>()
 
   const [message, setMessage] = useState('')

@@ -28,7 +28,7 @@ import { fetchUserProfileAsync } from './state/user/userProfileSlice'
 
 function App(): JSX.Element {
   const [user, setUser] = useState<Profile | null>(null);
-  const reduxUser = useSelector((state: RootState) => state.user)
+  const reduxUser = useSelector((state: RootState) => state.userProfile)
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
@@ -54,8 +54,8 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={
           reduxUser.id === null ?
-            <Login handleAuthEvt={handleAuthEvt} /> :
-            <Landing user={user} handleLogout={handleLogout}/>
+            <Login /> :
+            <Landing/>
         } />
         <Route
           path="/profiles"

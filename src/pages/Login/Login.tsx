@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 //types
-import { AuthPageProps } from '../../types/props';
 import { LoginFormData } from '../../types/forms';
 import { handleErrMsg } from '../../types/validators';
 
@@ -24,10 +23,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
+// Redux
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../state/store';
+import { fetchUserProfileAsync } from '../../state/user/userProfileSlice';
 
-export default function LoginPage(props: AuthPageProps) {
-  const { handleAuthEvt } = props
+
+export default function LoginPage() {
   const navigate = useNavigate()
+  const dispatch = useDispatch<AppDispatch>()
 
   const [message, setMessage] = useState('')
   const [emailError, setEmailError] = useState<boolean>(false)
@@ -58,7 +62,7 @@ export default function LoginPage(props: AuthPageProps) {
       if (typeof loginResult === 'string') {
         throw new Error(loginResult)
       }
-      handleAuthEvt()
+      dispatch(fetchUserProfileAsync())
       navigate('/')
     } catch (err) {
       console.log(err)

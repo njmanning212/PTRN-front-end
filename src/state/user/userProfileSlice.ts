@@ -20,7 +20,8 @@ const initialState: Profile = {
 const userProfileSlice = createSlice({
   name: 'userProfile',
   initialState,
-  reducers: {},
+  reducers: {
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserProfileAsync.fulfilled, (state, action: PayloadAction<Profile | null>) => {
@@ -28,14 +29,25 @@ const userProfileSlice = createSlice({
           return {...state, ...action.payload}
         }
       })
+      .addCase(logoutUserAsync.fulfilled, () => {
+        return initialState
+      })
   }
 })
 
 export const fetchUserProfileAsync = createAsyncThunk(
-  'user/fetchUserInitialData',
+  'userProfile/fetchUserProfile',
   async () => {
     const currentUserProfile = await authService.getUserProfile();
     return currentUserProfile;
+  }
+)
+
+export const logoutUserAsync = createAsyncThunk(
+  'userProfile/logoutUser',
+  async () => {
+    await authService.logout();
+    return
   }
 )
 
