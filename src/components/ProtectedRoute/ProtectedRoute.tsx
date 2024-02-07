@@ -14,7 +14,7 @@ const ProtectedRoute = (props: ProtectedRouteProps): JSX.Element => {
   const {children } = props
   const userProfile = useSelector((state: RootState) => state.userProfile)
 
-  if (!userProfile) return <Navigate to="/" />
+  if (!userProfile.id) return <Navigate to="/" />
   return <> { children } </>
 }
 

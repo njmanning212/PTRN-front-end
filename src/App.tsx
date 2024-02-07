@@ -27,13 +27,13 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchUserProfileAsync())
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
       <Routes>
         <Route path="/" element={
-          !userProfile ?
+          !userProfile.id ?
             <Login /> :
             <Landing/>
         } />

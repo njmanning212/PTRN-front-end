@@ -3,7 +3,19 @@ import { Profile } from "../../types/models";
 
 import * as authService from '../../services/authService';
 
-const initialState: Profile | null = null
+const initialState: Profile = {
+  id: null,
+  firstName: '',
+  lastName: '',
+  email: '',
+  phoneNumber: '',
+  roleName: '',
+  roleValue: 0,
+  profilePhotoUrl: null,
+  clinicId: null,
+  createdAt: null,
+  updatedAt: null,
+}
 
 const userProfileSlice = createSlice({
   name: 'userProfile',
@@ -14,7 +26,17 @@ const userProfileSlice = createSlice({
     builder
       .addCase(fetchUserProfileAsync.fulfilled, (state, action: PayloadAction<Profile | null>) => {
         if (action.payload !== null) {
-          return action.payload
+          state.id = action.payload.id;
+          state.firstName = action.payload.firstName;
+          state.lastName = action.payload.lastName;
+          state.email = action.payload.email;
+          state.phoneNumber = action.payload.phoneNumber;
+          state.roleName = action.payload.roleName;
+          state.roleValue = action.payload.roleValue;
+          state.profilePhotoUrl = action.payload.profilePhotoUrl;
+          state.clinicId = action.payload.clinicId;
+          state.createdAt = action.payload.createdAt;
+          state.updatedAt = action.payload.updatedAt;
         }
       })
 

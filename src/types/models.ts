@@ -14,8 +14,8 @@ export interface Profile {
   roleValue: number;
   profilePhotoUrl: string | null;
   clinicId: number | null;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | null;
+  updatedAt: Date | null;
 }
 
 export interface User {
