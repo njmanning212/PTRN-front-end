@@ -26,7 +26,7 @@ function getToken(): string | null {
   return token
 }
 
-function getUserFromToken(): number | null {
+function getUserProfileIdFromToken(): number | null {
   const token = getToken()  
   return token ? jwt_decode<Payload>(token).userProfileId : null
 }
@@ -35,4 +35,4 @@ function removeToken(): void {
   localStorage.removeItem('token')
 }
 
-export { setToken, getToken, getUserFromToken, removeToken }
+export { setToken, getToken, getUserProfileIdFromToken, removeToken }

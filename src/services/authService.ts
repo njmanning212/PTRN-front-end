@@ -46,7 +46,7 @@ async function signup(
 }
 
 async function getUserProfile(): Promise<Profile | null> {
-  const userProfileId = tokenService.getUserFromToken()
+  const userProfileId = tokenService.getUserProfileIdFromToken()
   if (!userProfileId) return null
   return await profileService.getProfile(userProfileId)
 }

@@ -14,8 +14,7 @@ import { ChangePasswordFormData } from '../../types/forms'
 import { handleErrMsg } from '../../types/validators'
 
 
-const ChangePassword = (props: AuthPageProps): JSX.Element => {
-  const { handleAuthEvt } = props
+const ChangePassword = (): JSX.Element => {
   const navigate = useNavigate()
 
   const [message, setMessage] = useState('')
@@ -34,7 +33,7 @@ const ChangePassword = (props: AuthPageProps): JSX.Element => {
     evt.preventDefault()
     try {
       await authService.changePassword(formData)
-      handleAuthEvt()
+      // handleAuthEvt()
       navigate('/')
     } catch (err) {
       console.log(err)

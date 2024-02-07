@@ -27,7 +27,7 @@ async function addPhoto(photoData: PhotoFormData): Promise<string> {
   const photoFormData = new FormData()
   photoFormData.append('photo', photoData.photo)
 
-  const userProfileId = tokenService.getUserFromToken()
+  const userProfileId = tokenService.getUserProfileIdFromToken()
   if (!userProfileId) throw new Error("No user.")
   
   const res = await fetch(`${BASE_URL}/${userProfileId}/add-photo`, {

@@ -15,7 +15,7 @@ const Landing = (): JSX.Element => {
     <>
       <NavBar />
       <main className={styles.container}>
-        <h1>Hello, {userProfile.id !== null ? userProfile.firstName : 'friend'}</h1>
+        <h1>Hello, {userProfile ? userProfile.firstName : 'friend'}</h1>
       </main>
     </>
   )

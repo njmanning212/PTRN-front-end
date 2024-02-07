@@ -3,19 +3,7 @@ import { Profile } from "../../types/models";
 
 import * as authService from '../../services/authService';
 
-const initialState: Profile = {
-  id: null,
-  firstName: '',
-  lastName: '',
-  email: '',
-  phoneNumber: '',
-  roleName: '',
-  roleValue: 0,
-  profilePhotoUrl: null,
-  clinicId: null,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-}
+const initialState: Profile | null = null
 
 const userProfileSlice = createSlice({
   name: 'userProfile',
@@ -25,13 +13,14 @@ const userProfileSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserProfileAsync.fulfilled, (state, action: PayloadAction<Profile | null>) => {
-        if (action.payload) {
-          return {...state, ...action.payload}
+        if (action.payload !== null) {
+          return action.payload
         }
       })
+
       .addCase(logoutUserAsync.fulfilled, () => {
-        return initialState
-      })
+        return initialState;
+      });
   }
 })
 
@@ -47,7 +36,6 @@ export const logoutUserAsync = createAsyncThunk(
   'userProfile/logoutUser',
   async () => {
     await authService.logout();
-    return
   }
 )
 
