@@ -9,7 +9,6 @@ import * as authService from '../../services/authService'
 import styles from './ChangePassword.module.css'
 
 // types
-import { AuthPageProps } from '../../types/props'
 import { ChangePasswordFormData } from '../../types/forms'
 import { handleErrMsg } from '../../types/validators'
 
