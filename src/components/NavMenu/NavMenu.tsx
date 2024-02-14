@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 //MUI
 import Box from '@mui/material/Box';
@@ -12,6 +12,9 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import MenuIcon from '@mui/icons-material/Menu';
+
+
 
 //Redux
 import { useDispatch } from 'react-redux';
@@ -19,7 +22,7 @@ import { AppDispatch } from '../../state/store';
 import { logoutUserAsync } from '../../state/user/userProfileSlice';
 
 export default function AccountMenu() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const dispatch = useDispatch<AppDispatch>();
   const open = Boolean(anchorEl);
   
@@ -40,16 +43,15 @@ export default function AccountMenu() {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title="Account settings">
+        <Tooltip title="Nav Menu">
           <IconButton
             onClick={handleClick}
             size="small"
-            sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+            <MenuIcon />
           </IconButton>
         </Tooltip>
       </Box>
