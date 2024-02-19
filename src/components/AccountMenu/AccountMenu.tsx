@@ -58,6 +58,7 @@ export default function AccountMenu() {
         id="account-menu"
         open={open}
         sx={{ 
+          xs: 'none',
           mt: 1.25, 
         }}
         onClose={handleClose}

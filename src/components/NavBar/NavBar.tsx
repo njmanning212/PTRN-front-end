@@ -1,4 +1,3 @@
-import * as React from 'react';
 
 //MUI
 import AppBar from '@mui/material/AppBar';
@@ -7,9 +6,8 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
-import MailIcon from '@mui/icons-material/Mail';
+import ErrorIcon from '@mui/icons-material/Error';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 
 //components
 import SearchBar from '../SearchBar/SearchBar';
@@ -19,7 +17,7 @@ import NavMenu from '../NavMenu/NavMenu';
 
 export default function NavBar() {
 
-
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -28,25 +26,17 @@ export default function NavBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block'} }}
+            sx={{ display: { xs: 'none', sm: 'block'}, mr: 1}}
           >
             PTRN
           </Typography>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ ml: 2 }}
-          >
-            <NavMenu />
-          </IconButton>
+          <NavMenu />
           <Box sx={{ flexGrow: 1 }} />
-          <SearchBar />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <SearchBar/>
+          <Box sx={{ display: 'flex' }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
-                <MailIcon />
+                <ErrorIcon />
               </Badge>
             </IconButton>
             <IconButton
@@ -59,16 +49,6 @@ export default function NavBar() {
               </Badge>
             </IconButton>
             <AccountMenu />
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
