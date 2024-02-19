@@ -1,5 +1,13 @@
 /* ---------===== custom props ====--------- */
 
+import { SvgIconComponent } from "@mui/icons-material";
+
+export interface NavMenuItem {
+  title: string;
+  icon: SvgIconComponent;
+  bgColor: string;
+  path: string;
+}
 
 
 /* ---------===== auth models =====--------- */
