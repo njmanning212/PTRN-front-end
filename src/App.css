@@ -20,6 +20,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --soft-blue: #5ba4e8;
+  --dark-gray: #4a4a4b;
+  --light-gray: #f1f2f5;
 }
 
 a,

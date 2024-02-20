@@ -17,11 +17,11 @@ import NavMenu from '../NavMenu/NavMenu';
 
 export default function NavBar() {
 
-  
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1}}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{bgcolor: 'var(--dark-gray)'}}>
           <Typography
             variant="h6"
             noWrap

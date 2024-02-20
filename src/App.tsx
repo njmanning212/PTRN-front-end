@@ -20,6 +20,8 @@ import './App.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from './state/store'
 import { fetchUserProfileAsync } from './state/user/userProfileSlice'
+import NavBar from './components/NavBar/NavBar'
+import ClinicList from './pages/ClinicList/ClinicList'
 
 function App(): JSX.Element {
   const userProfile = useSelector((state: RootState) => state.userProfile)
@@ -33,9 +35,17 @@ function App(): JSX.Element {
     <>
       <Routes>
         <Route path="/" element={
-          !userProfile.id ?
-            <Login /> :
-            <Landing/>
+          !userProfile.id
+            ? <Login />
+            : (
+              <>
+                <NavBar />
+                {userProfile.roleValue === 500 
+                  ? <ClinicList />
+                  : <h1>To be Added</h1>
+                }
+              </>
+            )
         } />
         <Route
           path="/auth/signup"
@@ -45,7 +55,7 @@ function App(): JSX.Element {
           path="/auth/change-password"
           element={
             <ProtectedRoute>
-              <ChangePassword/>
+              <ChangePassword />
             </ProtectedRoute>
           }
         />
