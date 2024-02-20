@@ -38,14 +38,6 @@ function App(): JSX.Element {
             <Landing/>
         } />
         <Route
-          path="/profiles"
-          element={
-            <ProtectedRoute>
-              <Profiles />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/auth/signup"
           element={<Signup />}
         />

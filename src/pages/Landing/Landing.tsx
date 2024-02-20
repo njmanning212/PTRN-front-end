@@ -1,12 +1,11 @@
-// css
-import styles from './Landing.module.css'
 
-// types
+// Redux
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
+
+// Components
 import NavBar from '../../components/NavBar/NavBar';
-
-
+import Clinics from '../../components/Clinics/Clinics';
 
 const Landing = (): JSX.Element => {
   const userProfile = useSelector((state: RootState) => state.userProfile)
@@ -14,9 +13,11 @@ const Landing = (): JSX.Element => {
   return (
     <>
       <NavBar />
-      <main className={styles.container}>
-        <h1>Hello, {userProfile.firstName}</h1>
-      </main>
+      {userProfile.roleValue < 500 
+        ? <h1>Clinic</h1>
+        : <Clinics />
+      }
+
     </>
   )
 }

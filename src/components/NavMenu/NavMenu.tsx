@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 //MUI
 import Box from '@mui/material/Box';
@@ -12,14 +13,10 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 //List
 import { NavMenuList } from './NavMenuList';
 
-//Redux
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../state/store';
-
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const dispatch = useDispatch<AppDispatch>();
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -61,7 +58,7 @@ export default function AccountMenu() {
         {NavMenuList.map((item, index) => (
           <MenuItem
             key={index}
-            onClick={handleClose}
+            onClick={() => navigate(item.path)}
             sx={{
               bgcolor: item.bgColor,
               margin: '10px',
